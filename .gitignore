@@ -1,0 +1,4 @@
+kubeconfig.yaml
+.gradle
+.idea
+configmap_secrets.yaml
