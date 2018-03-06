@@ -27,7 +27,7 @@ kubectl create secret docker-registry artifactory --docker-server=<YOUR-REGISTRY
 ## Setup
 The first step is to clone this repository. Next is the Secret for the AWS API credentials of the user that has 
 full access to our S3 bucket. Copy the `configmap_secrets_template.yaml` to `configmap_secrets.yaml` and place 
-your secretes at the right place
+your secrets at the right place
 
 ```yaml
 apiVersion: v1
@@ -93,7 +93,7 @@ Create a demo Pod and check the status:
 ```sh 
 kubectl apply -f ./yaml/example_pod.yaml
 
-# wait some second to get the od up and running...
+# wait some second to get the pod up and running...
 kubectl get pods
 
 # go into the pd and check that the /var/s3 is mounted with your S3 bucket content inside
@@ -110,5 +110,5 @@ it possible to mount a s3fs container file system to a host file system through 
 network storage with S3 backend.
 
 The key part is mountPath: `/var/s3:shared` which enables the volume to be mounted as shared inside the pod. When the 
-container starts it will mount the S3 bucket onto `/vars3` and consequently the data will be available under 
+container starts it will mount the S3 bucket onto `/var/s3` and consequently the data will be available under 
 `/mnt/data-s3fs` on the host and thus to any other container/pod running on it (and has `/mnt/data-s3fs` mounted too). 
