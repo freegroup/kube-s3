@@ -13,4 +13,4 @@ However, it can be used to import and parse large amounts of data into a databas
 
 ### Overview
 
-![s3-mount](./images/s3-mount.svg?raw=true)
+![s3-mount](./images/s3-mount.png)
