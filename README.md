@@ -12,3 +12,5 @@ network and are correspondingly slow.**
 However, it can be used to import and parse large amounts of data into a database.
 
 ### Overview
+
+![s3-mount](./images/s3-mount.svg)
