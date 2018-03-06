@@ -13,7 +13,7 @@ However, it can be used to import and parse large amounts of data into a databas
 
 ## Overview
 
-![s3-mount](images/s3-mount.png)
+![s3-mount](/images/s3-mount.png)
 
 ## Before you Begin
 You need to have a Kubernetes cluster, and the kubectl command-line tool must be configured to communicate with 
