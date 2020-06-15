@@ -21,8 +21,7 @@ RUN apk --update --no-cache add fuse alpine-sdk automake autoconf libxml2-dev fu
     rm -rf /var/cache/apk/*; \
     apk del git automake autoconf;
 
-RUN mkdir -p "$MNT_POINT"
+COPY ./run.sh /run.sh
+RUN chmod 755 /run.sh
+CMD /run.sh
 
-CMD echo "${AWS_KEY}:${AWS_SECRET_KEY}" > /etc/passwd-s3fs && \
-    chmod 0400 /etc/passwd-s3fs && \
-    /usr/bin/s3fs $S3_BUCKET $MNT_POINT -f -o endpoint=${S3_REGION},allow_other,use_cache=/tmp,max_stat_cache_size=1000,stat_cache_expire=900,retries=5,connect_timeout=10
