@@ -11,7 +11,15 @@ spec:
     volumeMounts:
     - name: mntdatas3fs
       mountPath: /var/s3:shared
+    livenessProbe:
+      exec:
+        command: ["ls", "/var/s3"]
+      failureThreshold: 3
+      initialDelaySeconds: 10
+      periodSeconds: 5
+      successThreshold: 1
+      timeoutSeconds: 1
   volumes:
   - name: mntdatas3fs
     hostPath:
-      path: /mnt/data-s3fs
+      path: /mnt/data-s3-fs
