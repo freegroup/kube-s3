@@ -12,9 +12,16 @@ spec:
     spec:
       containers:
       - name: s3fuse
-        image: cp-enablement.docker.repositories.sap.ondemand.com/kube-s3
+        image: freegroup/kube-s3
+        lifecycle:
+          preStop:
+            exec:
+              command: ["/bin/sh","-c","umount -f /var/s3"]
         securityContext:
           privileged: true
+          capabilities:
+            add:
+            - SYS_ADMIN
         # use ALL  entries in the config map as environment variables
         envFrom:
         - configMapRef:
@@ -24,12 +31,10 @@ spec:
           mountPath: /dev/fuse
         - name: mntdatas3fs
           mountPath: /var/s3:shared
-      imagePullSecrets:
-      - name: artifactory
       volumes:
       - name: devfuse
         hostPath:
           path: /dev/fuse
       - name: mntdatas3fs
         hostPath:
-          path: /mnt/data-s3fs
+          path: /mnt/data-s3-fs
