@@ -11,7 +11,7 @@ ENV S3_REGION ''
 VOLUME /var/s3
 
 
-ARG S3FS_VERSION=v1.84
+ARG S3FS_VERSION=v1.89
 
 RUN apk --update add bash fuse libcurl libxml2 libstdc++ libgcc alpine-sdk automake autoconf libxml2-dev fuse-dev curl-dev git; \
     git clone https://github.com/s3fs-fuse/s3fs-fuse.git; \
