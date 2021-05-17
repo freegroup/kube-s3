@@ -6,7 +6,7 @@ metadata:
   name: s3-provider
 spec:
   selector:
-  matchLabels:
+    matchLabels:
       app: s3-provider
   template:
     metadata:
