@@ -27,7 +27,7 @@ spec:
             - SYS_ADMIN
         # use ALL  entries in the config map as environment variables
         envFrom:
-        - configMapRef:
+        - secretRef:
             name: s3-config
         volumeMounts:
         - name: devfuse
