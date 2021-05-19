@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: s3fuse
-        image: josedevunion/kube-s3:aws-v0.2.0
+        image: josedevunion/kube-s3:aws-v1.0.0
         imagePullPolicy: IfNotPresent
 #        imagePullPolicy: Always
         lifecycle:
@@ -31,7 +31,7 @@ spec:
 
         env:
         - name: VERBOSE
-          value: "True"
+          value: "False"
         envFrom:
         - secretRef:
             name: s3-config
