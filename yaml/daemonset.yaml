@@ -15,9 +15,9 @@ spec:
     spec:
       containers:
       - name: s3fuse
-        image: josedevunion/kube-s3:aws-v0.1.0
-#        imagePullPolicy: IfNotPresent
-        imagePullPolicy: Always
+        image: josedevunion/kube-s3:aws-v0.2.0
+        imagePullPolicy: IfNotPresent
+#        imagePullPolicy: Always
         lifecycle:
           preStop:
             exec:
