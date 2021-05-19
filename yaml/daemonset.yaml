@@ -28,6 +28,10 @@ spec:
             add:
             - SYS_ADMIN
         # use ALL  entries in the config map as environment variables
+
+        env:
+        - name: VERBOSE
+          value: "True"
         envFrom:
         - secretRef:
             name: s3-config
