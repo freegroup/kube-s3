@@ -15,7 +15,9 @@ spec:
     spec:
       containers:
       - name: s3fuse
-        image: freegroup/kube-s3
+        image: josedevunion/kube-s3:aws-v0.1.0
+#        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         lifecycle:
           preStop:
             exec:
@@ -40,4 +42,4 @@ spec:
           path: /dev/fuse
       - name: mntdatas3fs
         hostPath:
-          path: /mnt/data-s3-fs
+          path: /mnt/data-s3-blankstyle-fs
