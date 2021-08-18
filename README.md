@@ -26,7 +26,7 @@ Generally S3 cannot offer the same performance or semantics as a local file syst
 
 ## Before you Begin
 You need to have a Kubernetes cluster, and the kubectl command-line tool must be configured to communicate with 
-your cluster. If you do not already have a cluster, you can create one by using the [Gardener](https://gardener.kubernetes.sap.corp/login).
+your cluster. If you do not already have a cluster, you can create one by using the [Gardener](https://gardener.cloud/).
 
 Ensure that you have create the "imagePullSecret" in your cluster.
 ```sh 
