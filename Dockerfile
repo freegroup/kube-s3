@@ -13,7 +13,7 @@ VOLUME /var/s3
 
 ARG S3FS_VERSION=v1.89
 
-RUN apk --update add bash fuse libcurl libxml2 libstdc++ libgcc alpine-sdk automake autoconf libxml2-dev fuse-dev curl-dev git; \
+RUN apk --update add bash fuse libcurl libxml2 libstdc++ libgcc alpine-sdk automake autoconf libxml2-dev fuse-dev curl-dev git mailcap; \
     git clone https://github.com/s3fs-fuse/s3fs-fuse.git; \
     cd s3fs-fuse; \
     git checkout tags/${S3FS_VERSION}; \
@@ -28,4 +28,5 @@ RUN apk --update add bash fuse libcurl libxml2 libstdc++ libgcc alpine-sdk autom
 RUN sed -i s/"#user_allow_other"/"user_allow_other"/g /etc/fuse.conf
 
 COPY docker-entrypoint.sh /
+RUN chmod +x /docker-entrypoint.sh
 CMD /docker-entrypoint.sh
