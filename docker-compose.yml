@@ -1,0 +1,21 @@
+version: "3.7"
+services:
+
+  kube-s3:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+      args:
+        version: latest
+    image: kube-s3
+    container_name: kube-s3
+    restart: always
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "1024k"
+        max-file: "10"
+    privileged: true
+    tty: true
+    command: bash
+

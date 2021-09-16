@@ -15,7 +15,8 @@ spec:
     spec:
       containers:
       - name: s3fuse
-        image: freegroup/kube-s3
+        image: container_image
+        imagePullPolicy: Always
         lifecycle:
           preStop:
             exec:
