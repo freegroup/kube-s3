@@ -15,7 +15,8 @@ spec:
     spec:
       containers:
       - name: s3fuse
-        image: freegroup/kube-s3
+        image: artifact.onwalk.net/devops/kube-s3:latest 
+        imagePullPolicy: Always
         lifecycle:
           preStop:
             exec:
@@ -27,7 +28,7 @@ spec:
             - SYS_ADMIN
         # use ALL  entries in the config map as environment variables
         envFrom:
-        - secretRef:
+        - configMapRef:
             name: s3-config
         volumeMounts:
         - name: devfuse
@@ -40,4 +41,4 @@ spec:
           path: /dev/fuse
       - name: mntdatas3fs
         hostPath:
-          path: /mnt/data-s3-fs
+          path: /mnt

@@ -6,19 +6,18 @@ IFS=$'\n\t'
 
 export S3_ACL=${S3_ACL:-private}
 
-mkdir -p ${MNT_POINT}
+mkdir -pv /var/s3
+
 
 if [ "$IAM_ROLE" == "none" ]; then
-  export AWSACCESSKEYID=${AWSACCESSKEYID:-$AWS_KEY}
-  export AWSSECRETACCESSKEY=${AWSSECRETACCESSKEY:-$AWS_SECRET_KEY}
-
-  echo "${AWS_KEY}:${AWS_SECRET_KEY}" > /etc/passwd-s3fs
-  chmod 0400 /etc/passwd-s3fs
+  export AWSACCESSKEYID=${AWSACCESSKEYID:-$AWS_ACCESS_KEY_ID}
+  export AWSSECRETACCESSKEY=${AWSSECRETACCESSKEY:-$AWS_SECRET_ACCESS_KEY}
 
   echo 'IAM_ROLE is not set - mounting S3 with credentials from ENV'
-  /usr/bin/s3fs  ${S3_BUCKET} ${MNT_POINT} -d -d -f -o endpoint=${S3_REGION},allow_other,retries=5
-  echo 'started...'
+  /usr/bin/s3fs ${S3_BUCKET} /var/s3 -d -d -f -o url=${S3_URL},endpoint=${S3_REGION},nonempty,allow_other,retries=5
 else
   echo 'IAM_ROLE is set - using it to mount S3'
-  /usr/bin/s3fs ${S3_BUCKET} ${MNT_POINT} -d -d -f -o endpoint=${S3_REGION},iam_role=${IAM_ROLE},allow_other,retries=5
+  /usr/bin/s3fs ${S3_BUCKET} /var/s3 -d -d -f -o url=${S3_URL},endpoint=${S3_REGION},iam_role=${IAM_ROLE},nonempty,allow_other,retries=5
 fi
+
+exec "$@"

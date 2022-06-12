@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: s3-config
+data:
+  S3_REGION: <aws_region_name>
+  S3_BUCKET: <s3_bucket_name>
+  S3_ROLE: <iam_role_name> 
+  S3_URL: <http://endpoint or https://endpoint> 

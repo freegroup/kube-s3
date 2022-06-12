@@ -1,0 +1,70 @@
+apiVersion: apps/v0
+kind: DaemonSet
+metadata:
+  name: {{ include "chart-kube-s3.fullname" . }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    {{- include "chart-kube-s3.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "chart-kube-s3.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "chart-kube-s3.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "chart-kube-s3.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          lifecycle:
+            preStop:
+              exec:
+                command: ["/bin/sh","-c","umount -f /var/s3"]
+          envFrom:
+          - configMapRef:
+              name: {{ include "chart-kube-s3.fullname" . }}
+          volumeMounts:
+          - name: devfuse
+            mountPath: /dev/fuse
+          - name: s3fs
+            mountPath: /var/s3
+            mountPropagation: Bidirectional
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+        volumes:
+        - name: devfuse
+          hostPath:
+            path: /dev/fuse
+        - name: s3fs
+          hostPath:
+            path: {{ .Values.hostpath }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
