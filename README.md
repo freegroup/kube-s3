@@ -33,21 +33,6 @@ Ensure that you have create the "imagePullSecret" in your cluster.
 kubectl create secret docker-registry artifactory --docker-server=<YOUR-REGISTRY>.docker.repositories.sap.ondemand.com --docker-username=<USERNAME> --docker-password=<PASSWORD> --docker-email=<EMAIL> -n <NAMESPACE>
 ```
 
-## Setup
-The first step is to clone this repository. Next is the Secret for the AWS API credentials of the user that has 
-full access to our S3 bucket. Copy the `configmap_secrets_template.yaml` to `configmap_secrets.yaml` and place 
-your secrets at the right place
-
-```yaml
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: s3-config
-data:
-  S3_BUCKET: <YOUR-S3-BUCKET-NAME>
-  AWS_KEY: <YOUR-AWS-TECH-USER-ACCESS-KEY>
-  AWS_SECRET_KEY: <YOUR-AWS-TECH-USER-SECRET>
-```
 
 ## Build and deploy
 Change the settings in the `build.sh` file with your docker registry settings. 
