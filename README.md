@@ -99,10 +99,17 @@ ls -la /var/s3
 ```
 
 ## Why does this work?
-Docker engine 1.10 added a new feature which allows containers to share the host mount namespace. This feature makes 
+Containerd (and previously docker) allows containers to share the host mount namespace. This feature makes 
 it possible to mount a s3fs container file system to a host file system through a shared mount, providing a persistent
 network storage with S3 backend.
 
-The key part is mountPath: `/var/s3:shared` which enables the volume to be mounted as shared inside the pod. When the 
-container starts it will mount the S3 bucket onto `/var/s3` and consequently the data will be available under 
-`/mnt/data-s3fs` on the host and thus to any other container/pod running on it (and has `/mnt/data-s3fs` mounted too). 
+The key part is 
+
+```
+mountPath: /var/s3
+mountPropagation: Bidirectional
+```
+
+which enables the volume to be mounted as shared inside the pod. When the container starts. it will mount the S3 bucket
+onto `/var/s3` and consequently the data will be available under `/mnt/data-s3fs` on the host and thus to any other 
+container/pod running on it (and has `/mnt/data-s3fs` mounted too). 
