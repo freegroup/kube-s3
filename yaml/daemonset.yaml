@@ -33,7 +33,8 @@ spec:
         - name: devfuse
           mountPath: /dev/fuse
         - name: mntdatas3fs
-          mountPath: /var/s3:shared
+          mountPath: /var/s3
+          mountPropagation: Bidirectional
       volumes:
       - name: devfuse
         hostPath:

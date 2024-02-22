@@ -10,7 +10,8 @@ spec:
       privileged: true
     volumeMounts:
     - name: mntdatas3fs
-      mountPath: /var/s3:shared
+      mountPath: /var/s3
+      mountPropagation: Bidirectional
     livenessProbe:
       exec:
         command: ["ls", "/var/s3"]
